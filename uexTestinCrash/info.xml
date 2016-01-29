@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
-    <plugin uexName="uexTestinCrash" version="3.0.1" build="0">
-        <info>0:云测崩溃大师</info>
+    <plugin uexName="uexTestinCrash" version="3.0.2" build="2">
+        <info>2:版本号修订,修复plugin.xml</info>
+        <build>0:云测崩溃大师</build>
     </plugin>
 </uexplugins>
