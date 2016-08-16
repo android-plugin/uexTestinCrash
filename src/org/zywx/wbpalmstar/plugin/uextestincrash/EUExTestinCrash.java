@@ -1,10 +1,8 @@
 package org.zywx.wbpalmstar.plugin.uextestincrash;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.testin.agent.TestinAgent;
@@ -32,21 +30,7 @@ public class EUExTestinCrash extends EUExBase {
     }
 
 
-    public void init(String[] params) {
-        if (params == null || params.length < 1) {
-            errorCallback(0, 0, "error params!");
-            return;
-        }
-        Message msg = new Message();
-        msg.obj = this;
-        msg.what = MSG_INIT;
-        Bundle bd = new Bundle();
-        bd.putStringArray(BUNDLE_DATA, params);
-        msg.setData(bd);
-        mHandler.sendMessage(msg);
-    }
-
-    private void initMsg(String[] params) {
+    public boolean init(String[] params) {
         String json = params[0];
         String appKey=null;
         String channel=null;
@@ -56,8 +40,10 @@ public class EUExTestinCrash extends EUExBase {
             channel=jsonObject.optString("channel");
 
         } catch (JSONException e) {
+            return false;
         }
         TestinAgent.init(mContext.getApplicationContext(),appKey,channel);
+        return true;
     }
 
     public void setUserInfo(String[] params) {
@@ -136,9 +122,6 @@ public class EUExTestinCrash extends EUExBase {
         Bundle bundle=message.getData();
         switch (message.what) {
 
-            case MSG_INIT:
-                initMsg(bundle.getStringArray(BUNDLE_DATA));
-                break;
             case MSG_SET_USER_INFO:
                 setUserInfoMsg(bundle.getStringArray(BUNDLE_DATA));
                 break;
